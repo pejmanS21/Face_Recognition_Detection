@@ -1,6 +1,6 @@
 import face_recognition as fr
 import os
-import cv2 as cv
+import cv2
 import numpy as np
 from time import sleep
 
@@ -30,7 +30,7 @@ def classify_face(im):
     faces_encoded = list(faces.values())
     known_face_names = list(faces.keys())
 
-    img = cv.imread(im, 1)
+    img = cv2.imread(im, 1)
 
     face_locations = fr.face_locations(img)
     unknown_face_encodings = fr.face_encodings(img, face_locations)
@@ -52,18 +52,18 @@ def classify_face(im):
 
         for (top, right, bottom, left), name in zip(face_locations, face_names):
             # Draw a box around the face
-            cv.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
+            cv2.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
 
             # Draw a label with a name below the face
-            cv.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv.FILLED)
-            font = cv.FONT_HERSHEY_DUPLEX
-            cv.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
+            cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
 
     # Show the final process
 
     while True:
-        cv.imshow('Detected face(s)', img)
-        if cv.waitKey(1) & 0xFF == ord('q'):     # Press Q to exit
+        cv2.imshow('Detected face(s)', img)
+        if cv2.waitKey(1) & 0xFF == ord('q'):     # Press Q to exit
             return face_names
 
 
